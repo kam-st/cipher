@@ -35,6 +35,7 @@ export const {
     sessionsTable: SessionTable,
   }),
   session: { strategy: "jwt" },
+  trustHost: true,
   providers: [
     Google({ allowDangerousEmailAccountLinking: true }),
     Credentials({
@@ -57,6 +58,7 @@ export const {
       },
     }),
   ],
+
   callbacks: {
     async signIn({ user, account }) {
       // Allow OAuth without email verification

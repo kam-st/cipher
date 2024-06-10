@@ -10,7 +10,7 @@ import { useCurrentRole } from '@/hooks/use-current-role';
 
 import { toast } from 'sonner';
 
-export const AdminPage = () => {
+const AdminPage = () => {
   const onServerActionClick = () => {
     admin().then((data) => {
       if (data.success) {
