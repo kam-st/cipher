@@ -1,25 +1,26 @@
 "use server";
 
-import * as z from "zod";
-import { signIn } from "@/auth";
-
-import { LoginSchema } from "@/lib/validations/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
 import { AuthError } from "next-auth";
-import { getUserbyEmail } from "@/data/user";
-import {
-  generateTwoFactorToken,
-  generateVerificationToken,
-} from "@/lib/tokens";
-import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/mail";
-import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
-import { db } from "@/lib/db";
+import * as z from "zod";
+
+import { signIn } from "@/auth";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
+import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
+import { getUserbyEmail } from "@/data/user";
 import {
   TwoFactorConfirmationTable,
   TwoFactorTokenTable,
 } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/mail";
+import {
+  generateTwoFactorToken,
+  generateVerificationToken,
+} from "@/lib/tokens";
+import { LoginSchema } from "@/lib/validations/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
 export const loginAction = async (
   values: z.infer<typeof LoginSchema>,
@@ -36,7 +37,22 @@ export const loginAction = async (
   const existingUser = await getUserbyEmail(email);
 
   if (!existingUser || !existingUser.email || !existingUser.password) {
-    return { error: "Email and pasword combination does not exist" };
+    return { error: "Email and password combination does not exist" };
+  }
+
+  if (existingUser && existingUser.password) {
+    const { email, password } = validatedFields.data;
+
+    if (!existingUser.password) {
+      return null;
+    }
+    const passwordsMatch = await bcrypt.compare(
+      password,
+      existingUser.password
+    );
+
+    if (!passwordsMatch)
+      return { error: "Email and password combination does not exist" };
   }
 
   if (!existingUser.emailVerified) {

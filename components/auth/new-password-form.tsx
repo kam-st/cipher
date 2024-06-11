@@ -1,12 +1,19 @@
 'use client';
 
-import * as z from 'zod';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useState, useTransition } from 'react';
 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useSearchParams } from 'next/navigation';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+import { newPasswordAction } from '@/actions/new-password-action';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { NewPasswordSchema } from '@/lib/validations/auth';
 
+import { FormError } from './form-error';
+import { FormSucess } from './form-sucess';
 import {
   Form,
   FormControl,
@@ -15,13 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { NewPasswordSchema } from '@/lib/validations/auth';
-import { FormError } from './form-error';
-import { FormSucess } from './form-sucess';
 
-import { useState, useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { newPasswordAction } from '@/actions/new-password-action';
+
 
 const NewPaswordForm = () => {
   const searchParams = useSearchParams();

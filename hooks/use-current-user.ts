@@ -1,5 +1,6 @@
-import { useSession } from "next-auth/react";
 import { useEffect } from "react";
+
+import { useSession } from "next-auth/react";
 
 export const useCurrentUser = () => {
   const session = useSession();
@@ -9,7 +10,7 @@ export const useCurrentUser = () => {
     if (user === undefined) {
       window.location.reload();
     }
-  }, [user]);
+  });
 
   return user;
 };

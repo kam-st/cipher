@@ -64,3 +64,10 @@ export type UserSubscriptionPlan = SubscriptionPlan &
     stripeCurrentPeriodEnd: number;
     isPro: boolean;
   };
+
+export type MailerType = {
+  from: string;
+  to: string;
+  subject: string;
+  emailHtml: string;
+};

@@ -1,22 +1,21 @@
-import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import bcrypt from "bcryptjs";
+import { eq } from "drizzle-orm";
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 
-import { db } from "./lib/db";
-import Credentials from "next-auth/providers/credentials";
-import { LoginSchema } from "./lib/validations/auth";
-import { getUserbyEmail, getUserById } from "./data/user";
-import bcrypt from "bcryptjs";
-import { UserRole } from "@/drizzle/schema";
-import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
 import { getAccountByUserId } from "./data/account";
+import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation";
+import { getUserbyEmail, getUserById } from "./data/user";
 import {
   AccountTable,
   SessionTable,
   TwoFactorConfirmationTable,
   UserTable,
 } from "./drizzle/schema";
-import { eq } from "drizzle-orm";
+import { db } from "./lib/db";
+import { LoginSchema } from "./lib/validations/auth";
 
 export const {
   handlers,
@@ -82,10 +81,6 @@ export const {
         await db
           .delete(TwoFactorConfirmationTable)
           .where(eq(TwoFactorConfirmationTable.id, twoFactorConfirmation.id));
-
-        // await db.twoFactorConfirmation.delete({
-        //   where: { id: twoFactorConfirmation.id },
-        // });
       }
 
       return true;
@@ -131,11 +126,6 @@ export const {
         .update(UserTable)
         .set({ emailVerified: new Date() })
         .where(eq(UserTable.id as any, user.id));
-
-      // await db.user.update({
-      //   where: { id: user.id },
-      //   data: { emailVerified: new Date() },
-      // });
     },
   },
 });

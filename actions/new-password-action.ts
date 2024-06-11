@@ -1,16 +1,16 @@
 "use server";
 
-import { NewPasswordSchema } from "@/lib/validations/auth";
-import { getUserbyEmail } from "@/data/user";
-import { string, z } from "zod";
-import { error } from "console";
-import { generatePasswordResetToken } from "@/lib/tokens";
-import { sendPasswordResetEmail } from "@/lib/mail";
-import { getPasswordResetTokenByTokenEmail } from "@/data/password-reset-token";
 import bcrypt from "bcryptjs";
-import { db } from "@/lib/db";
-import { PasswordResetTokenTable, UserTable } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
+import { z } from "zod";
+
+import { getPasswordResetTokenByTokenEmail } from "@/data/password-reset-token";
+import { getUserbyEmail } from "@/data/user";
+import { PasswordResetTokenTable, UserTable } from "@/drizzle/schema";
+import { db } from "@/lib/db";
+import { sendPasswordResetEmail } from "@/lib/mail";
+import { generatePasswordResetToken } from "@/lib/tokens";
+import { NewPasswordSchema } from "@/lib/validations/auth";
 
 export const newPasswordAction = async (
   values: z.infer<typeof NewPasswordSchema>,
@@ -49,14 +49,18 @@ export const newPasswordAction = async (
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  await db
-    .update(UserTable)
-    .set({ password: hashedPassword })
-    .where(eq(UserTable.id, existingToken.id));
+  try {
+    await db
+      .update(UserTable)
+      .set({ password: hashedPassword })
+      .where(eq(UserTable.email, existingToken.email));
 
-  await db
-    .delete(PasswordResetTokenTable)
-    .where(eq(PasswordResetTokenTable.id, existingToken.id));
+    await db
+      .delete(PasswordResetTokenTable)
+      .where(eq(PasswordResetTokenTable.id, existingToken.id));
+  } catch (e) {
+    console.log("new-pasword.tsx", e);
+  }
 
   return { success: "Password updated!" };
 };
