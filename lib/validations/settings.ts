@@ -1,5 +1,6 @@
-import { UserRole } from "@/drizzle/schema";
 import { z } from "zod";
+
+import { UserRole } from "@/drizzle/schema";
 
 export const SettingsSchema = z
   .object({

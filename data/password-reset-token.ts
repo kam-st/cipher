@@ -1,6 +1,7 @@
+import { and, eq } from "drizzle-orm";
+
 import { PasswordResetTokenTable } from "@/drizzle/schema";
 import { db } from "@/lib/db";
-import { and, eq } from "drizzle-orm";
 
 export const getPasswordResetTokenByTokenEmail = async (
   token: string,

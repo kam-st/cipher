@@ -1,10 +1,12 @@
 'use client';
 
+import { useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+
 import { DividerWithText } from '../misc/dividerWithText';
 import { Button } from '../ui/button';
-import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
-import { useSearchParams } from 'next/navigation';
 
 type SocialAuthProps = {
   type?: 'Login' | 'Signup';

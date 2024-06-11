@@ -1,15 +1,16 @@
 'use client';
 
-import { Icons } from '../misc/icons';
 import { useCurrentUser } from '@/hooks/use-current-user';
+
 import { LogoutButton } from './logout-button';
+import { Icons } from '../misc/icons';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 
 export const UserButton = () => {
   const user = useCurrentUser();

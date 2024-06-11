@@ -1,17 +1,18 @@
-import { v4 as uuidV4 } from "uuid";
-
 import crypto from "crypto";
 
-import { getVerificationTokenByEmail } from "@/data/verification-token";
-import { db } from "./db";
+import { eq } from "drizzle-orm";
+import { v4 as uuidV4 } from "uuid";
+
 import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
+import { getVerificationTokenByEmail } from "@/data/verification-token";
 import {
   PasswordResetTokenTable,
   TwoFactorTokenTable,
   VerificationTokenTable,
 } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
+
+import { db } from "./db";
 
 export const generateTwoFactorToken = async (email: string) => {
   const token = crypto.randomInt(100_000, 1_000_000).toString();

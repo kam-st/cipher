@@ -1,18 +1,21 @@
 'use client';
 
+import { useState, useTransition } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
+import { registerAction } from '@/actions/registerAction';
 import { Button } from '@/components/ui/button';
-
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DividerWithText } from '../misc/dividerWithText';
-import { useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { RegisterSchema } from '@/lib/validations/auth';
 
+import { FormError } from './form-error';
+import { FormSucess } from './form-sucess';
+import { DividerWithText } from '../misc/dividerWithText';
 import {
   Form,
   FormControl,
@@ -21,9 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from '../ui/form';
-import { FormError } from './form-error';
-import { FormSucess } from './form-sucess';
-import { registerAction } from '@/actions/registerAction';
+
 
 export function RegisterForm() {
   const [error, setError] = useState<string | undefined>('');

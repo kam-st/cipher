@@ -1,9 +1,10 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
-import { Dialog, DialogTrigger } from '../ui/dialog';
 import { DialogContent } from '@radix-ui/react-dialog';
+import { useRouter } from 'next/navigation';
+
 import { LoginForm } from './loginForm';
+import { Dialog, DialogTrigger } from '../ui/dialog';
 
 type LoginButtonProps = {
   children: React.ReactNode;

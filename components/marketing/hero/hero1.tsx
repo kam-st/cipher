@@ -1,7 +1,9 @@
+import React from 'react';
+
+import Link from 'next/link';
+
 import { LoginButton } from '@/components/auth/loginButton';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import React from 'react';
 
 const Hero1 = () => {
   return (

@@ -1,9 +1,10 @@
+import { and, eq } from "drizzle-orm";
+
 import {
   TwoFactorConfirmationTable,
   TwoFactorTokenTable,
 } from "@/drizzle/schema";
 import { db } from "@/lib/db";
-import { and, eq } from "drizzle-orm";
 
 export const getTwoFactorTokenByTokenEmail = async (
   token: string,

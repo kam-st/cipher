@@ -1,5 +1,13 @@
 'use client';
 
+import { useEffect, useState, useTransition } from 'react';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import { settings } from '@/actions/settings';
 import { FormError } from '@/components/auth/form-error';
 import { FormSucess } from '@/components/auth/form-sucess';
@@ -26,13 +34,7 @@ import { Switch } from '@/components/ui/switch';
 import { UserRole } from '@/drizzle/schema';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { SettingsSchema } from '@/lib/validations/settings';
-import { zodResolver } from '@hookform/resolvers/zod';
 
-import { signIn, useSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 
 const Settings = () => {
   const user = useCurrentUser();

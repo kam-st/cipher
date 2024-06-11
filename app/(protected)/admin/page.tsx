@@ -1,5 +1,7 @@
 'use client';
 
+import { toast } from 'sonner';
+
 import { admin } from '@/actions/admin';
 import { FormSucess } from '@/components/auth/form-sucess';
 import { RoleGate } from '@/components/auth/role-gate';
@@ -8,7 +10,6 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { UserRole } from '@/drizzle/schema';
 import { useCurrentRole } from '@/hooks/use-current-role';
 
-import { toast } from 'sonner';
 
 const AdminPage = () => {
   const onServerActionClick = () => {

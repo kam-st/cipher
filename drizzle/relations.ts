@@ -1,10 +1,11 @@
-import { relations } from 'drizzle-orm/relations';
+import { relations } from "drizzle-orm/relations";
+
 import {
   UserTable,
   AccountTable,
   SessionTable,
   TwoFactorConfirmationTable,
-} from './schema';
+} from "./schema";
 
 export const AccountRelations = relations(AccountTable, ({ one }) => ({
   User: one(UserTable, {

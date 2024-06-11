@@ -1,9 +1,11 @@
+import React from 'react';
+
+import Link from 'next/link';
+
 import { LoginForm } from '@/components/auth/loginForm';
+import { SocialAuth } from '@/components/auth/socialAuth';
 import { Icons } from '@/components/misc/icons';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import React from 'react';
 import {
   Card,
   CardContent,
@@ -11,8 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
-import { SocialAuth } from '@/components/auth/socialAuth';
 
 const LoginPage = () => {
   return (

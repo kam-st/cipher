@@ -1,13 +1,18 @@
 'use client';
 
-import { newVerification } from '@/actions/newVerificationAction';
-import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { BeatLoader } from 'react-spinners';
-import { FormSucess } from './form-sucess';
-import { FormError } from './form-error';
-import { Button } from '../ui/button';
+
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { BeatLoader } from 'react-spinners';
+
+import { newVerification } from '@/actions/newVerificationAction';
+
+
+import { FormError } from './form-error';
+import { FormSucess } from './form-sucess';
+import { Button } from '../ui/button';
+
 
 export const NewVerificationForm = () => {
   const [error, setError] = useState<string | undefined>('');

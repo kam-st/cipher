@@ -1,9 +1,12 @@
 'use client';
 
 import * as React from 'react';
+
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
 
+import { Icons } from '@/components/misc/icons';
+import { MobileNav } from '@/components/nav/mobile-nav-2';
 import {
   Sheet,
   SheetContent,
@@ -12,12 +15,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-
-import { MainNavItem } from '@/types';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import { Icons } from '@/components/misc/icons';
-import { MobileNav } from '@/components/nav/mobile-nav-2';
+import { MainNavItem } from '@/types';
 
 interface MainNavProps {
   items?: MainNavItem[];

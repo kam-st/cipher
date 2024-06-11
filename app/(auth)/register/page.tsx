@@ -1,9 +1,12 @@
+import React from 'react';
+
+import Link from 'next/link';
+
 import { RegisterForm } from '@/components/auth/register-form';
+import { SocialAuth } from '@/components/auth/socialAuth';
+import { DividerWithText } from '@/components/misc/dividerWithText';
 import { Icons } from '@/components/misc/icons';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Link from 'next/link';
-import React from 'react';
 import {
   Card,
   CardContent,
@@ -11,8 +14,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { DividerWithText } from '@/components/misc/dividerWithText';
-import { SocialAuth } from '@/components/auth/socialAuth';
+import { cn } from '@/lib/utils';
+
 
 const LoginPage = () => {
   return (

@@ -1,11 +1,13 @@
 'use client';
 
+import React, { useEffect } from 'react';
+
+import { usePathname, useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+
 import { UserInfo } from '@/components/user-info';
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { signIn, useSession } from 'next-auth/react';
-import { usePathname, useRouter } from 'next/navigation';
 
-import React, { useEffect } from 'react';
 
 const ClientPage = () => {
   const user = useCurrentUser();

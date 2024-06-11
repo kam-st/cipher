@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
-import { Icons } from '@/components/misc/icons';
+
 import { NewVerificationForm } from '@/components/auth/new-verification-form';
+import { Icons } from '@/components/misc/icons';
+import { buttonVariants } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 const NewVerificationPage = () => {
   return (
