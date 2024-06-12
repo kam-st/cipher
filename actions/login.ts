@@ -61,10 +61,17 @@ export const loginAction = async (
       existingUser.email
     );
 
-    await sendVerificationEmail(
-      verificationToken.email,
-      verificationToken.token
-    );
+    if (existingUser.name === null) {
+      existingUser.name = "";
+    }
+
+    if (existingUser) {
+      await sendVerificationEmail(
+        verificationToken.email,
+        verificationToken.token,
+        existingUser.name
+      );
+    }
 
     return { success: "Confirmation email sent!" };
   }
@@ -111,7 +118,11 @@ export const loginAction = async (
     } else {
       const twoFactorToken = await generateTwoFactorToken(existingUser.email);
 
-      await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token);
+      await sendTwoFactorTokenEmail(
+        twoFactorToken.email,
+        twoFactorToken.token,
+        existingUser.name
+      );
 
       return { twoFactor: true };
     }

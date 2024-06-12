@@ -2,16 +2,16 @@
 
 import bcrypt from "bcryptjs";
 
+import { z } from "zod";
+import { eq } from "drizzle-orm";
 import { getUserById, getUserbyEmail } from "@/data/user";
 import { currentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
 import { SettingsSchema } from "@/lib/validations/settings";
-import { z } from "zod";
 
 import { UserTable } from "@/drizzle/schema";
-import { eq } from "drizzle-orm";
 
 export const settings = async (values: z.infer<typeof SettingsSchema>) => {
   const user = await currentUser();
@@ -45,9 +45,14 @@ export const settings = async (values: z.infer<typeof SettingsSchema>) => {
 
     const verificationToken = await generateVerificationToken(values.email);
 
+    if (user?.name === undefined || user.name === null) {
+      user.name = "";
+    }
+
     await sendVerificationEmail(
       verificationToken.email,
-      verificationToken.token
+      verificationToken.token,
+      user.name
     );
 
     return { success: "Verification email Sent!" };

@@ -1,10 +1,14 @@
+
 import type { Metadata } from 'next';
+// eslint-disable-next-line import/order
 import { Inter as FontSans } from 'next/font/google';
+
 import './globals.css';
-import { cn } from '@/lib/utils';
-import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
 import { Toaster } from 'sonner';
+
+import { auth } from '@/auth';
+import { cn } from '@/lib/utils';
 
 // const inter = Inter({ subsets: ["latin"] });
 

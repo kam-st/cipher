@@ -21,7 +21,7 @@ import {
 
 type ResetPassEmailProps = {
   email: string;
- name?: string;
+ name?: string ;
   inviteLink: string
 };
 

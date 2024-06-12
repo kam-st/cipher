@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useEffect, useState, useTransition } from 'react';
+import { useEffect, useState, useTransition } from "react";
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter, useSearchParams } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { settings } from '@/actions/settings';
-import { FormError } from '@/components/auth/form-error';
-import { FormSucess } from '@/components/auth/form-sucess';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { settings } from "@/actions/settings";
+import { FormError } from "@/components/auth/form-error";
+import { FormSucess } from "@/components/auth/form-sucess";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -21,28 +21,27 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
-import { UserRole } from '@/drizzle/schema';
-import { useCurrentUser } from '@/hooks/use-current-user';
-import { SettingsSchema } from '@/lib/validations/settings';
-
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { UserRole } from "@/drizzle/schema";
+import { useCurrentUser } from "@/hooks/use-current-user";
+import { SettingsSchema } from "@/lib/validations/settings";
 
 const Settings = () => {
   const user = useCurrentUser();
 
   const { update } = useSession();
 
-  const [error, setError] = useState<string | undefined>('');
-  const [success, setSucess] = useState<string | undefined>('');
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSucess] = useState<string | undefined>("");
   const [isPending, startTransiton] = useTransition();
 
   const form = useForm<z.infer<typeof SettingsSchema>>({
@@ -70,33 +69,33 @@ const Settings = () => {
             setSucess(data.success);
           }
         })
-        .catch(() => setError('Something went wrong!'));
+        .catch(() => setError("Something went wrong!"));
     });
   };
   return (
     <>
       {user && (
-        <Card className='w-[600px]'>
+        <Card className="w-[600px] rounded-none shadow-none  ">
           <CardHeader>
-            <p className='text-2xl font-semibold text-center'>Settings</p>
+            <p className="text-2xl font-semibold text-center">Settings</p>
           </CardHeader>
           <CardContent>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className='space-y-6'
+                className="space-y-6"
               >
-                <div className='space-y-4'>
+                <div className="space-y-4">
                   <FormField
                     control={form.control}
-                    name='name'
+                    name="name"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
                           <Input
                             {...field}
-                            placeholder='John Doe'
+                            placeholder="John Doe"
                             disabled={isPending}
                           />
                         </FormControl>
@@ -110,15 +109,15 @@ const Settings = () => {
                     <>
                       <FormField
                         control={form.control}
-                        name='email'
+                        name="email"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Email</FormLabel>
                             <FormControl>
                               <Input
-                                type='email'
+                                type="email"
                                 {...field}
-                                placeholder='john.doe@example.com'
+                                placeholder="john.doe@example.com"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -128,15 +127,15 @@ const Settings = () => {
                       />
                       <FormField
                         control={form.control}
-                        name='password'
+                        name="password"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Password</FormLabel>
                             <FormControl>
                               <Input
-                                type='password'
+                                type="password"
                                 {...field}
-                                placeholder='********'
+                                placeholder="********"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -146,15 +145,15 @@ const Settings = () => {
                       />
                       <FormField
                         control={form.control}
-                        name='newPassword'
+                        name="newPassword"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>New password</FormLabel>
                             <FormControl>
                               <Input
-                                type='password'
+                                type="password"
                                 {...field}
-                                placeholder='********'
+                                placeholder="********"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -164,15 +163,15 @@ const Settings = () => {
                       />
                       <FormField
                         control={form.control}
-                        name='confirmNewPassword'
+                        name="confirmNewPassword"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Confirm new password</FormLabel>
                             <FormControl>
                               <Input
-                                type='password'
+                                type="password"
                                 {...field}
-                                placeholder='********'
+                                placeholder="********"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -184,7 +183,7 @@ const Settings = () => {
                   )}
                   <FormField
                     control={form.control}
-                    name='role'
+                    name="role"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Role</FormLabel>
@@ -196,7 +195,7 @@ const Settings = () => {
                           >
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder='select a role' />
+                                <SelectValue placeholder="select a role" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
@@ -216,10 +215,10 @@ const Settings = () => {
                   {user?.isOAuth === false && (
                     <FormField
                       control={form.control}
-                      name='isTwoFactorEnabled'
+                      name="isTwoFactorEnabled"
                       render={({ field }) => (
-                        <FormItem className='flex flex-row items-center justify-between rounded-lg border p-3'>
-                          <div className='space-y-0.5'>
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
+                          <div className="space-y-0.5">
                             <FormLabel>Two Factor Authentication</FormLabel>
                             <FormDescription>
                               Enable two factor autentication for your account.
@@ -240,7 +239,7 @@ const Settings = () => {
                 </div>
                 <FormError message={error} />
                 <FormSucess message={success} />
-                <Button type='submit' disabled={isPending}>
+                <Button type="submit" disabled={isPending}>
                   Save
                 </Button>
               </form>

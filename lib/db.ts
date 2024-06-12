@@ -9,7 +9,7 @@ import * as schema from "@/drizzle/schema";
 const client = postgres(process.env.POSTGRES_URL! as string, {
   prepare: false,
   max: 200,
-  idle_timeout: 0,
+  idle_timeout: 1,
 });
 export const db = drizzle(client, { schema, logger: true });
 

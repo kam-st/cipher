@@ -1,7 +1,7 @@
 "use server";
 
-import { currentRole } from "@/lib/auth";
 import { UserRole } from "@/drizzle/schema";
+import { currentRole } from "@/lib/auth";
 
 export const admin = async () => {
   const role = await currentRole();
